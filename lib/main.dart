@@ -2,128 +2,173 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui' as ui;
 
-void main() => runApp(const CountingApp());
+void main() => runApp(const ProfileApp());
 
-class CountingApp extends StatelessWidget {
-  const CountingApp({super.key});
+class ProfileApp extends StatelessWidget {
+  const ProfileApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: IncrementBanner(),
+      home: ProfileBanner(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class IncrementBanner extends StatefulWidget {
-  const IncrementBanner({super.key});
+class ProfileBanner extends StatefulWidget {
+  const ProfileBanner({super.key});
 
   @override
-  State<IncrementBanner> createState() => _IncrementBannerState();
+  State<ProfileBanner> createState() => _ProfileBanner();
 }
 
-class _IncrementBannerState extends State<IncrementBanner> {
+class _ProfileBanner extends State<ProfileBanner> {
+
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  void showAlert() {
+    showDialog(
+        context: context,
+        builder: (dialogContext) {
+          return AlertDialog(
+
+            iconColor: Colors.white,
+            title: const Text('Future builder!'),
+            content: Text(
+              _nameController.text.isEmpty
+                  ? 'This project is not finish yet. Soon to add input containers.'
+                  : 'Hi Developer!'
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(),
+                child: const Text('Ok'),
+              )
+            ],
+          ); // ALERT DIALOG
+        } // BUILDER
+    ); // SHOW DIALOG
+  } // END
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Subtle background makes cards pop
       appBar: AppBar(
+        backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(
-          "PROFILE SAVER APP".toUpperCase(),
+          'PROFILE APP VIEWER',
           style: GoogleFonts.poppins(
-            fontSize: 18,
             fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Colors.white
+          )
+        ),
+        actions: [
+          IconButton(
             color: Colors.white,
-          ),
-        ),
-        elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1.0),
-          child: Container(
-            color: Colors.grey[800],
-            height: 1.0,
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
-
-      // SECTION 1 AND CARD 1
-      // ADDED MAINAXIS SIZE TO AVOID COLLAPSE
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Card(
-            elevation: 5,
-            shadowColor: Colors.black26,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: BorderSide(
-                color: Colors.black,
-                width: 0.6
-              )
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage('https://scontent.fmnl25-8.fna.fbcdn.net/v/t39.30808-6/473646561_4166865343543836_5403416549590694445_n.jpg?stp=dst-jpg_tt6&cstp=mx960x970&ctp=s960x970&_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGpQnrf0Qtyaw1-fKeuXXePVH4-EJb4YRhUfj4QlvhhGLJerRjJhQBzI4HIcJpKCrOqXTq-TAO-pGcEP_DmetMn&_nc_ohc=C7N6VohEcZ4Q7kNvwE13XrP&_nc_oc=AdqsyYyGKnTAGeFM6pHiQTiEa-imYG7dEtG_7yL4JJr-djwf2_hT1URRfd5l7erWNgQ&_nc_zt=23&_nc_ht=scontent.fmnl25-8.fna&_nc_gid=BZPWAQCgo0x9L12r-zdIyw&_nc_ss=7b2a8&oh=00_AQHEbsmXrWGF42pbpnc7DFWiKZXbok1R147Lhz_TlRMSeQ&oe=6A77E3FB'),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // OVERFLOW PROTECTION
-                        Text(
-                          'Franz Ignacio',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            foreground: Paint()
-                              ..shader = ui.Gradient.linear(
-                                const Offset(0, 0),
-                                const Offset(150, 0),
-                                <Color>[
-                                  Colors.blue[700]!,
-                                  Colors.black,
-                                ],
-                              ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Mobile Developer',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          Card(
-            elevation: 4,
-            shadowColor: Colors.black12,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.horizontal(
-                left: Radius.circular(20.0)
-              )
-              )
-            ),
+            icon: const Icon(Icons.info_outline),
+            tooltip: 'About',
+            onPressed: showAlert,
+          )
         ],
       ),
+
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            Text(
+              'Profile Card',
+              style:
+              TextStyle(
+                fontStyle: FontStyle.italic,
+              ),
+
+            ),
+            // BUILDING WIDGETS AND DESIGN AFTER
+            _buildProfileCard(), const Divider(height: 20),
+            _builderInformationCard(), const Divider(height: 20)
+          ]
+        ),
+      )
     );
   }
+}
+
+Widget _buildProfileCard() {
+  return Card(
+    elevation: 1,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+      side: const BorderSide(
+        color: Colors.blue,
+        width: 0.5,
+      ),
+    ),
+    child: Padding(
+      padding: EdgeInsets.all(15),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundImage: NetworkImage('https://scontent.fmnl25-8.fna.fbcdn.net/v/t39.30808-6/473646561_4166865343543836_5403416549590694445_n.jpg?stp=dst-jpg_tt6&cstp=mx960x970&ctp=s960x970&_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGpQnrf0Qtyaw1-fKeuXXePVH4-EJb4YRhUfj4QlvhhGLJerRjJhQBzI4HIcJpKCrOqXTq-TAO-pGcEP_DmetMn&_nc_ohc=-abjSkwtHCIQ7kNvwGIENiB&_nc_oc=Adqplw6GUwjIjpMgrspkXFFagMhLz1wpkYYYvQkXh9Xpn2TOS4vHim1s60pBC8ZM3Ro&_nc_zt=23&_nc_ht=scontent.fmnl25-8.fna&_nc_gid=q_QinXM3zuWIbleXaG-A8Q&_nc_ss=7b2a8&oh=00_AQGmCKYVNJdeSAG70c_ZMN1kXtDCoGKl3XU2AF2U2VvpUA&oe=6A79357B'),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Franz Ignacio',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text('PHP Developer and Flutter not Developer')
+              ],
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _builderInformationCard() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Center(
+       child: Text(
+         'TUP logo + Stock Image',
+         style:  GoogleFonts.blakaHollow(
+           fontStyle: FontStyle.normal,
+           fontSize: 15,
+         )
+       ),
+      ),
+      const SizedBox(height: 8),
+      Stack(
+        children: [
+          Container(
+            height: 150,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.black
+            ),
+          )
+        ],
+      )
+    ],
+  );
 }
