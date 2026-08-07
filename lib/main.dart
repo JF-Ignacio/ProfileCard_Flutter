@@ -109,13 +109,15 @@ class _ProfileBanner extends State<ProfileBanner> {
             const SizedBox(height: 1),
             _buildProfileCard(), const Divider(height: 20),
             _builderInformationCard(), const Divider(height: 20),
-            _buildHorizontalListButtons(), const Divider(height: 20)
+            _buildHorizontalListButtons(), const Divider(height: 20),
+            _buildCardForContacts(), const Divider(height: 20, thickness: 0)
           ],
         ),
       )
     );
   }
 
+  // PROFILE CARD
   Widget _buildProfileCard() {
     return Card(
       elevation: 1,
@@ -304,6 +306,38 @@ class _ProfileBanner extends State<ProfileBanner> {
           ),
         )
       ],
+    );
+  }
+
+  // BUILD CARD WITH INFORMATION DETAILS
+
+  Widget _buildCardForContacts() {
+    final contact = 09993172659;
+    final email = 'franzignaciopogi@gmail.com';
+
+    return Card(
+      elevation: 4,
+      shape:  RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(10),
+        side: BorderSide(
+          color: Colors.black,
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Text(
+              'Contact Information'.toUpperCase(),
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+              ),
+            ),
+          ),
+        ],
+      )
     );
   }
 }
