@@ -209,7 +209,7 @@ class _ProfileBanner extends State<ProfileBanner> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: const Text(
-                    'MVP',
+                    'PAGINATION IMAGE',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -310,34 +310,24 @@ class _ProfileBanner extends State<ProfileBanner> {
   }
 
   // BUILD CARD WITH INFORMATION DETAILS
-
   Widget _buildCardForContacts() {
-    final contact = 09993172659;
-    final email = 'franzignaciopogi@gmail.com';
-
-    return Card(
-      elevation: 4,
-      shape:  RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(10),
-        side: BorderSide(
-          color: Colors.black,
-          width: 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Text(
-              'Contact Information'.toUpperCase(),
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              ),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'CONTACT CARD',
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-        ],
-      )
+        ),
+        Card(
+          elevation: 4,
+          child: Row(
+
+          ),
+        )
+      ],
     );
   }
 }
