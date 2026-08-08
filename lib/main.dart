@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as ui;
 
 void main() => runApp(const ProfileApp());
@@ -323,8 +326,37 @@ class _ProfileBanner extends State<ProfileBanner> {
         ),
         Card(
           elevation: 4,
-          child: Row(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: Colors.black,
+              width: 1
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: 'JF-Ignacio',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 12
+                        ),
 
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                          launch('https://github.com/JF-Ignacio');
+                          },
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         )
       ],
