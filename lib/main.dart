@@ -1,8 +1,6 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/gestures.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as ui;
 
 void main() => runApp(const ProfileApp());
@@ -101,13 +99,6 @@ class _ProfileBanner extends State<ProfileBanner> {
         padding: EdgeInsets.all(20),
         child: ListView(
           children: [
-            Text(
-              'Profile Card',
-              style:
-              TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
-            ),
             // BUILDING WIDGETS AND DESIGN AFTER
             const SizedBox(height: 1),
             _buildProfileCard(), const Divider(height: 20),
@@ -324,37 +315,26 @@ class _ProfileBanner extends State<ProfileBanner> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 7),
         Card(
           elevation: 4,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(14),
             side: BorderSide(
-              color: Colors.black,
-              width: 1
+              color: Colors.black12,
+              width:  1,
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Row(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: 'JF-Ignacio',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12
-                        ),
-
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                          launch('https://github.com/JF-Ignacio');
-                          },
-                      ),
-                    )
-                  ],
-                )
+                _buildContactRow(Icons.email_outlined, 'Email: ', 'franzignaciopogi@gmail.com'),
+                const SizedBox(height: 7), // GAP BETWEEN EACH CONTACT
+                _buildContactRow(Icons.contact_phone_outlined, 'Contact: ', '09993172659'),
+                const SizedBox(height: 7),
+                _buildContactRow(Icons.code_outlined, 'GitHub: ', 'https://github.com/JF-Ignacio')
               ],
             ),
           ),
@@ -362,4 +342,31 @@ class _ProfileBanner extends State<ProfileBanner> {
       ],
     );
   }
+}
+
+Widget _buildContactRow(IconData icon, String label, String value) {
+  return Row(
+    children: [
+      Icon(
+        icon, size: 14, color: Colors.black38
+      ),
+      const SizedBox(width: 7), // GAP BETWEEN ICON AND TEXT
+      Text(
+        '${label.toUpperCase()}; ',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 14
+        ),
+      ),
+
+      Expanded(
+        child: Text(
+          value,
+          style: TextStyle( fontSize: 14 ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis // CUT LONG URLs parameter
+        ),
+      ),
+    ],
+  );
 }
