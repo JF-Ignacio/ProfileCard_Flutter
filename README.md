@@ -1,8 +1,8 @@
 # hello_flutter
 
-A new Flutter project.
+A FLUTTER FOLDER WHERE IT TRACKS MY FLUTTER LEARNING PROGRESSION.
 
-## Getting Started
+## FLUTTER PRACTICE FOLDER
 
 This project is a starting point for a Flutter application.
 
