@@ -44,13 +44,11 @@ class _ProfileBanner extends State<ProfileBanner> {
     );
   }
 
-
   void showAlert() {
     showDialog(
         context: context,
         builder: (dialogContext) {
           return AlertDialog(
-
             iconColor: Colors.white,
             title: const Text('Future builder!'),
             content: Text(
@@ -104,7 +102,8 @@ class _ProfileBanner extends State<ProfileBanner> {
             _buildProfileCard(), const Divider(height: 20),
             _builderInformationCard(), const Divider(height: 20),
             _buildHorizontalListButtons(), const Divider(height: 20),
-            _buildCardForContacts(), const Divider(height: 20, thickness: 0)
+            _buildCardForContacts(), const Divider(height: 20, thickness: 0),
+            _buildRowLayoutDemo(), const Divider(height: 20)
           ],
         ),
       )
@@ -326,15 +325,17 @@ class _ProfileBanner extends State<ProfileBanner> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // DRY: Inside Children, gawa ka Widget wt same widget_name
+                // SET VALUE PARAMETER TO BE CALLED ON DESIGNING
                 _buildContactRow(Icons.email_outlined, 'Email: ', 'franzignaciopogi@gmail.com'),
                 const SizedBox(height: 7), // GAP BETWEEN EACH CONTACT
                 _buildContactRow(Icons.contact_phone_outlined, 'Contact: ', '09993172659'),
                 const SizedBox(height: 7),
-                _buildContactRow(Icons.code_outlined, 'GitHub: ', 'https://github.com/JF-Ignacio')
+                _buildContactRow(Icons.code_outlined, 'GitHub', 'https://github.com/JF-Ignacio')
               ],
             ),
           ),
@@ -342,31 +343,75 @@ class _ProfileBanner extends State<ProfileBanner> {
       ],
     );
   }
+
+
+// ASSIGN VARIABLE TO YOUR SET PARAMETER
+  Widget _buildContactRow(IconData icon, String label, String value) {
+    return Row(
+      children: [
+        Icon(
+            icon, size: 14, color: Colors.black38
+        ),
+        const SizedBox(width: 7), // GAP BETWEEN ICON AND TEXT
+        Text(
+          '${label.toUpperCase()}; ',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14
+          ),
+        ),
+
+        // FILL OUT EMPTY SPACE IN THE COLUMN
+        Expanded(
+          child: Text(
+              value,
+              style: TextStyle( fontSize: 14 ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis // CUT LONG URLs parameter
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRowLayoutDemo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'PYTHON VS PHP'.toUpperCase(),
+          style: GoogleFonts.agdasima(
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            color: Colors.black
+          ),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: EdgeInsets.all(14),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: GestureDetector(
+                  onHorizontalDragCancel: () => _showSnackBar('Expanded with a flex of 2 shares'),
+                  child: Container(
+                    height: 60,
+                    color: Colors.indigoAccent,
+                    alignment: Alignment.center,
+                    child: Text('EXPANEDED (flex: 2)',
+                    style: TextStyle(
+                      fontSize: 12
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
 }
 
-Widget _buildContactRow(IconData icon, String label, String value) {
-  return Row(
-    children: [
-      Icon(
-        icon, size: 14, color: Colors.black38
-      ),
-      const SizedBox(width: 7), // GAP BETWEEN ICON AND TEXT
-      Text(
-        '${label.toUpperCase()}; ',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14
-        ),
-      ),
-
-      Expanded(
-        child: Text(
-          value,
-          style: TextStyle( fontSize: 14 ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis // CUT LONG URLs parameter
-        ),
-      ),
-    ],
-  );
-}
