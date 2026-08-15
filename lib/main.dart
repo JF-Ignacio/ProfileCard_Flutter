@@ -380,35 +380,44 @@ class _ProfileBanner extends State<ProfileBanner> {
       children: [
         Text(
           'PYTHON VS PHP'.toUpperCase(),
-          style: GoogleFonts.agdasima(
-            fontSize: 23,
+          style: GoogleFonts.poppins(
+            fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.black
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 4),
         Padding(
           padding: EdgeInsets.all(14),
           child: Row(
             children: [
-              Expanded(
-                flex: 2,
-                child: GestureDetector(
-                  onHorizontalDragCancel: () => _showSnackBar('Expanded with a flex of 2 shares'),
-                  child: Container(
-                    height: 60,
-                    color: Colors.indigoAccent,
-                    alignment: Alignment.center,
-                    child: Text('EXPANEDED (flex: 2)',
+              Text(
+                'Cross-platform Apps vs Native Apps',
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: GestureDetector(
+                onTap: () => _showSnackBar('Expanded Tapped'),
+                child: Container(
+                  height: 60,
+                  color: Colors.black,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Expanede with flex 2',
                     style: TextStyle(
-                      fontSize: 12
-                      ),
+                      color: Colors.white
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+            Flex(dir)
+          ],
         )
       ],
     );
